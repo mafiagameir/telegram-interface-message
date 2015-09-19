@@ -27,7 +27,7 @@ import java.util.Arrays;
 import java.util.Properties;
 
 /**
- * @author Esa Hekmatizadeh
+ * @author hekmatof
  */
 public class MessageHolder {
     private static final Logger logger = LoggerFactory.getLogger(MessageHolder.class);
