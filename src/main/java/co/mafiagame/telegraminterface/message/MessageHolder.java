@@ -21,7 +21,10 @@ package co.mafiagame.telegraminterface.message;
 import co.mafiagame.common.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PostConstruct;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.Properties;
@@ -29,13 +32,19 @@ import java.util.Properties;
 /**
  * @author hekmatof
  */
+@Component
 public class MessageHolder {
     private static final Logger logger = LoggerFactory.getLogger(MessageHolder.class);
     private static final Properties properties = new Properties();
 
-    static {
+
+    @Value("${mafia.language}")
+    private String language;
+
+    @PostConstruct
+    public void init() {
         try {
-            properties.load(MessageHolder.class.getClassLoader().getResourceAsStream(Constants.CONF.MESSAGE_FILE));
+            properties.load(MessageHolder.class.getClassLoader().getResourceAsStream(Constants.CONF.MESSAGE_FILE + language + ".properties"));
         } catch (IOException e) {
             logger.error("could not load message properties", e);
         }
